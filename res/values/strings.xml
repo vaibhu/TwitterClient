@@ -11,5 +11,6 @@
     <string name="btn_cancel">Cancel</string>
     <string name="btn_tweet">Tweet</string>
     <string name="btn_loadMore">Load More...</string>
+    <string name="tv_count">Count: 141</string>
 
 </resources>

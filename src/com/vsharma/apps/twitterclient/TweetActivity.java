@@ -1,35 +1,37 @@
 package com.vsharma.apps.twitterclient;
 
-import java.util.ArrayList;
-
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.vsharma.apps.twitterclient.models.Tweet;
-import com.vsharma.apps.twitterclient.models.User;
-
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
+import android.text.Editable;
 import android.text.Html;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
+
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.vsharma.apps.twitterclient.models.User;
 
 public class TweetActivity extends Activity {
 
-	EditText etBody;
+	private EditText etBody;
+	private TextView tvCount;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tweet);
 		etBody = (EditText) findViewById(R.id.etBody);
+		
+		tvCount = (TextView) findViewById(R.id.tvCount);
+		
 		TwitterClientApp.getRestClient().getLoggedInUserInfo(new JsonHttpResponseHandler() {
 			@Override
 			public void onSuccess(JSONObject jsonObject) {
@@ -49,8 +51,25 @@ public class TweetActivity extends Activity {
 			    
 			}
 		});
+		
+		final TextWatcher txwatcher = new TextWatcher() {
+			   
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			
+			}
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				tvCount.setText("Count: "+String.valueOf(141-s.length()));
+			}
+
+			public void afterTextChanged(Editable s) {
+			
+			}
+		};
+		
+		etBody.addTextChangedListener(txwatcher);
 	}
 
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
