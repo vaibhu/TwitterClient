@@ -58,7 +58,7 @@ public class TweetActivity extends Activity {
 			
 			}
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				tvCount.setText("Count: "+String.valueOf(141-s.length()));
+				tvCount.setText("Count: "+String.valueOf(140-s.length()));
 			}
 
 			public void afterTextChanged(Editable s) {
